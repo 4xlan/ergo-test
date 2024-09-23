@@ -1,5 +1,7 @@
 ## Project: "demo"
 
+![screenshot.png](screenshot.png)
+
 ### Generated with
  - Types for the network messaging: true
  - Enabled Observer (http://localhost:9911): false
