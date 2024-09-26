@@ -14,10 +14,15 @@ type Ans struct {
 	Msg string
 }
 
+type InitMsgReq struct {
+	ReqLink any
+}
+
 func init() {
 	types := []any{
 		Req{},
 		Ans{},
+		InitMsgReq{},
 	}
 
 	for _, t := range types {

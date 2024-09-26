@@ -1,6 +1,7 @@
 package main
 
 import (
+	"demo/pkg/svc1"
 	"flag"
 
 	"demo/apps/testapp"
@@ -44,6 +45,14 @@ func main() {
 	//if err := node.Network().RegisterMessage(demo.Messages...); err != nil {
 	//	panic(err)
 	//}
+
+	msvc1 := svc1.Svc1{}
+	err = msvc1.Init(node)
+	if err != nil {
+		panic(err)
+	}
+
+	go msvc1.Start()
 
 	node.Wait()
 }

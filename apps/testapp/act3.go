@@ -2,10 +2,10 @@ package testapp
 
 import (
 	"demo"
+	"demo/pkg/constants"
 	"ergo.services/ergo/act"
 	"ergo.services/ergo/gen"
 	"fmt"
-	"time"
 )
 
 func factory_Act3() gen.ProcessBehavior {
@@ -32,7 +32,6 @@ func (a *Act3) Init(args ...any) error {
 // or any other for abnormal termination.
 func (a *Act3) HandleMessage(from gen.PID, message any) error {
 	a.Log().Info("act3: %s", a.State())
-	time.Sleep(time.Second * 1)
 	return nil
 }
 
@@ -43,7 +42,13 @@ func (a *Act3) HandleCall(from gen.PID, ref gen.Ref, request any) (any, error) {
 	a.Log().Info("got request from %s with reference %s", from, ref)
 	switch req := request.(type) {
 	case demo.Req:
-		return demo.Ans{Ok: true, Msg: fmt.Sprintf("%s -> act3", req.Msg)}, nil
+		tmp := demo.Ans{Ok: true, Msg: fmt.Sprintf("%s -> act3", req.Msg)}
+		answer, err := a.Call(constants.Act1, tmp)
+		if err != nil {
+			return nil, err
+		}
+		return answer, nil
+
 	default:
 		return gen.Atom("pong"), nil
 	}

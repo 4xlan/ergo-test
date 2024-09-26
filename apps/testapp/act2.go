@@ -2,6 +2,7 @@ package testapp
 
 import (
 	"demo"
+	"demo/pkg/constants"
 	"ergo.services/ergo/act"
 	"ergo.services/ergo/gen"
 	"fmt"
@@ -43,7 +44,7 @@ func (a *Act2) HandleCall(from gen.PID, ref gen.Ref, request any) (any, error) {
 	a.Log().Info("got request from %s with reference %s", from, ref)
 	switch req := request.(type) {
 	case demo.Req:
-		ans, err := a.Call("act3", demo.Req{
+		ans, err := a.Call(constants.Act3, demo.Req{
 			Msg: fmt.Sprintf("%s -> act2", req.Msg),
 		})
 		if err != nil {
